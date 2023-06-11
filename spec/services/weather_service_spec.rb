@@ -1,9 +1,9 @@
 require 'rails_helper'
 
-RSpec.describe  WheatherService do
+RSpec.describe  WeatherService do
   it 'gets weather for provo utah' do
     lat_lon = '40.2337,-111.66889'
-    ws =  WheatherService.new
+    ws =  WeatherService.new
     data = ws.get_weather(lat_lon)
 
     current = data[:current]
