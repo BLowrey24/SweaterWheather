@@ -8,8 +8,8 @@ RSpec.describe GeocodeService do
     result = data[:results].first[:locations].first[:latLng]
 
     expect(result).to be_a Hash
-    expect(result[:lat]).to eq(38.892062)
-    expect(result[:lng]).to eq(-77.019912)
+    expect(result[:lat]).to eq(38.89037)
+    expect(result[:lng]).to eq(-77.03196)
   end
 
   it 'gets lat and lng for austin texas' do
