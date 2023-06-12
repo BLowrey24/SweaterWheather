@@ -1,8 +1,6 @@
 class BookSearchService
-
-  def get_books(city)
-    require 'pry'; binding.pry
-    get_url("/api/v1/book-search?location=#{city}&quantity=5")
+  def get_books(location, quantity)
+    get_url("/search.json?place=#{location}&limit=#{quantity}")
   end
 
   private
@@ -11,7 +9,6 @@ class BookSearchService
     end
 
     def get_url(url)
-      require 'pry'; binding.pry
       response = conn.get(url)
       JSON.parse(response.body, symbolize_names: true)
     end
