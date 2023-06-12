@@ -1,16 +1,18 @@
-class  WeatherService
+class WeatherService
 
-  def get_weather(lat_lon)
-    response = conn.get("current.json?q=#{lat_lon}}")
-    JSON.parse(response.body, symbolize_names: true)
+  def get_weather(lat, lng)
+    get_url("/v1/forecast.json?q=#{lat},#{lng}&days=6")
   end
 
-
   private
-
-    def conn
-      Faraday.new(url: "http://api.weatherapi.com/v1") do |f|
-        f.params['key'] = ENV['WEATHER_API_KEY']
+    def conn 
+      Faraday.new(url: 'http://api.weatherapi.com') do |faraday|
+        faraday.params['key'] = ENV['WEATHER_API_KEY']
       end
+    end
+
+    def get_url(url)
+      response = conn.get(url)
+      JSON.parse(response.body, symbolize_names: true)
     end
 end
