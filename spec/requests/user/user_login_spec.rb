@@ -19,11 +19,20 @@ RSpec.describe "User Login" do
   end
 
   describe 'sad path' do
-    it 'returns an error if email is incorrect' do
+    it 'returns an error if email does not match' do
       post '/api/v1/sessions', params: { user: { email: "incorrect email", password: "password" } }
       expect(response).to_not be_successful
       expect(response.status).to eq(400)
       
+      body = JSON.parse(response.body, symbolize_names: true)
+      expect(body[:error]).to eq("Invalid credentials")
+    end
+
+    it 'returns an error if password does not match' do
+      post '/api/v1/sessions', params: { user: { email: "baston@example.com", password: "incorrect password" } }
+      expect(response).to_not be_successful
+      expect(response.status).to eq(400)
+
       body = JSON.parse(response.body, symbolize_names: true)
       expect(body[:error]).to eq("Invalid credentials")
     end
