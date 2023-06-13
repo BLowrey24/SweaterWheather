@@ -11,6 +11,8 @@ class WeatherFacade
 
   def activities_by_location
     @_activities_by_location ||= Activity.new(format_forecast, format_activity_data)
+    # @_activities_by_location ||= activity = Activity.new(format_forecast, format_activity_data)
+    # activity.determine_activities(weather.current_weather[:temperature])
   end
 
   private
