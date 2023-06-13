@@ -7,6 +7,7 @@ class Activity
     @forecast = forecast_data[:forecast]
     @activities = activities_data[:activities]
   end
+end
 
 #   def determine_activities(temperature)
 #     if temperature >= 60
@@ -38,4 +39,3 @@ class Activity
 #   def parse_activity_response(response)
 #     JSON.parse(response.body, symbolize_names: true)
 #   end
-end
