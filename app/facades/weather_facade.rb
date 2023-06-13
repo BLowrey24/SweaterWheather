@@ -9,6 +9,14 @@ class WeatherFacade
     @_weather ||= Weather.new(format_weather_data)
   end
 
+  def activities_by_location
+    @_activities_by_location ||= Activity.new(format_forecast, format_activity_data)
+  end
+
+  def activity_data
+    @_activity_data ||= activity_service.get_activities(@location)
+  end
+
   private
     def geocode_service
       @_location_service ||= GeocodeService.new
@@ -16,6 +24,10 @@ class WeatherFacade
 
     def weather_service
       @_weather_service ||= WeatherService.new
+    end
+
+    def activity_service
+      @_activity_service ||= ActivityService.new
     end
 
     def get_location
@@ -70,5 +82,28 @@ class WeatherFacade
         icon: hour[:condition][:icon]
       }
       end
+    end
+
+    def format_activity_data
+      {
+        total_books: activity_data,
+        books: books_data[:docs].map do |activity|
+          {
+            isbn: book[:isbn],
+            title: book[:title],
+            publisher: book[:publisher]
+          }
+        end
+      }
+    end
+
+    def format_forecast
+      {
+        destination: @location,
+        forecast: {
+          summary: weather_data[:current][:condition][:text],
+          temperature: "#{weather_data[:current][:temp_f]} F"
+        }
+      }
     end
 end
