@@ -17,4 +17,20 @@ RSpec.describe 'User Creation' do
       expect(body[:data][:attributes][:api_key]).to be_a String
     end
   end
+
+  describe 'sad path' do
+    it 'returns an error if email is missing' do
+      post '/api/v1/users', params: { user: { password: "password", password_confirmation: "password" } }
+      expect(response).to_not be_successful
+      expect(response.status).to eq(400)
+      body = JSON.parse(response.body, symbolize_names: true)
+      
+      expect(body).to be_a Hash
+      expect(body).to have_key :errors
+      expect(body[:errors]).to be_a Array
+      expect(body[:errors][0]).to be_a Hash
+      expect(body[:errors][0]).to have_key :detail
+      expect(body[:errors][0][:detail]).to eq("email or password are invalid or missing")
+    end
+  end
 end
