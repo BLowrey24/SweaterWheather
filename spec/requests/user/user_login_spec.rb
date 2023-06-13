@@ -6,7 +6,7 @@ RSpec.describe "User Login" do
   end
   describe 'happy path' do
     it 'can log in a user' do
-      post '/api/v1/sessions', params: { user: { email: "baston@example.com", password: "password" } }
+      post '/api/v1/sessions', params: { email: "baston@example.com", password: "password" } 
       expect(response).to be_successful
       expect(response.status).to eq(200)
 
@@ -20,7 +20,7 @@ RSpec.describe "User Login" do
 
   describe 'sad path' do
     it 'returns an error if email does not match' do
-      post '/api/v1/sessions', params: { user: { email: "incorrect email", password: "password" } }
+      post '/api/v1/sessions', params: { email: "incorrect email", password: "password" }
       expect(response).to_not be_successful
       expect(response.status).to eq(400)
 
@@ -29,7 +29,7 @@ RSpec.describe "User Login" do
     end
 
     it 'returns an error if password does not match' do
-      post '/api/v1/sessions', params: { user: { email: "baston@example.com", password: "incorrect password" } }
+      post '/api/v1/sessions', params: { email: "baston@example.com", password: "incorrect password" } 
       expect(response).to_not be_successful
       expect(response.status).to eq(400)
 
