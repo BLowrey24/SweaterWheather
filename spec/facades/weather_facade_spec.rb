@@ -39,24 +39,20 @@ RSpec.describe WeatherFacade do
 
     it 'returns a book-search object for a given location, with some weather', :vcr => { :record => :new_episodes } do
       activities_by_location = WeatherFacade.new('chicago,il').activities_by_location
-      
-      expect(activities_by_location).to be_a Books
-      expect(activities_by_location.destination).to eq('denver,co')
+      expect(activities_by_location).to be_a Activity
+      expect(activities_by_location.destination).to eq('chicago,il')
       expect(activities_by_location.forecast).to be_a Hash
       expect(activities_by_location.forecast).to have_key :summary
       expect(activities_by_location.forecast).to have_key :temperature
-      expect(activities_by_location.total_books_found).to be_an Integer
-      expect(activities_by_location.books).to be_an Array
-      expect(activities_by_location.books.count).to eq(5)
-      expect(activities_by_location.books.first).to be_a Hash
-      expect(activities_by_location.books.first).to have_key :isbn
-      expect(activities_by_location.books.first[:isbn]).to be_an Array
-      expect(activities_by_location.books.first[:isbn].first).to be_a String
-      expect(activities_by_location.books.first).to have_key :title
-      expect(activities_by_location.books.first[:title]).to be_a String
-      expect(activities_by_location.books.first).to have_key :publisher
-      expect(activities_by_location.books.first[:publisher]).to be_an Array
-      expect(activities_by_location.books.first[:publisher].first).to be_a String
+      expect(activities_by_location.activities).to be_a Hash
+      expect(activities_by_location.activities.first).to be_an Array
+      expect(activities_by_location.activities.first[1]).to be_a Hash 
+      expect(activities_by_location.activities.first[1]).to have_key :type
+      expect(activities_by_location.activities.first[1][:type]).to be_a String
+      expect(activities_by_location.activities.first[1]).to have_key :participants
+      expect(activities_by_location.activities.first[1][:participants]).to be_a Integer
+      expect(activities_by_location.activities.first[1]).to have_key :price
+      expect(activities_by_location.activities.first[1][:price]).to be_a Float
     end
   end
 end
