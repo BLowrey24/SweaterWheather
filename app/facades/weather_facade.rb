@@ -13,17 +13,18 @@ class WeatherFacade
     @_activities_by_location ||= Activity.new(format_forecast, format_activity_data)
   end
 
-  def activity_data
-    @_activity_data ||= activity_service.get_activities(@location)
-  end
-
   private
+
     def geocode_service
       @_location_service ||= GeocodeService.new
     end
 
     def weather_service
       @_weather_service ||= WeatherService.new
+    end
+
+    def activity_data
+      @_activity_data ||= activity_service.get_activities(@location)
     end
 
     def activity_service
@@ -84,18 +85,15 @@ class WeatherFacade
       end
     end
 
-    def format_activity_data
-      {
-        total_books: activity_data,
-        books: books_data[:docs].map do |activity|
-          {
-            isbn: book[:isbn],
-            title: book[:title],
-            publisher: book[:publisher]
-          }
-        end
-      }
-    end
+    # def format_activity_data
+    #   {
+    #     activities: activity_data[:data].map do |activity|
+    #       {
+    #         
+    #       }
+    #     end
+    #   }
+    # end
 
     def format_forecast
       {
