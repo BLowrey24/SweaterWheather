@@ -85,22 +85,27 @@ class WeatherFacade
       end
     end
 
-    # def format_activity_data
-    #   {
-    #     activities: activity_data[:data].map do |activity|
-    #       {
-    #         
-    #       }
-    #     end
-    #   }
-    # end
+    def format_activity_data
+      # require 'pry'; binding.pry
+      {
+        activities:
+          {
+            "#{activity_data[:activity]}": 
+            {
+              "type": activity_data[:type],
+              "participants": activity_data[:participants],
+              "price": activity_data[:price]
+            }
+          }
+      }
+    end
 
     def format_forecast
       {
         destination: @location,
         forecast: {
-          summary: weather_data[:current][:condition][:text],
-          temperature: "#{weather_data[:current][:temp_f]} F"
+          summary: weather.current_weather[:condition],
+          temperature: "#{weather.current_weather[:temperature]} F"
         }
       }
     end
