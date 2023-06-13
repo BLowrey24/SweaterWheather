@@ -86,7 +86,6 @@ class WeatherFacade
     end
 
     def format_activity_data
-      # require 'pry'; binding.pry
       {
         activities:
           {
