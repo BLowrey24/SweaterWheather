@@ -43,15 +43,13 @@ to run tests in your terminal run (bundle exec rspec)
 - You can utilize Postman or VScodes Thunderclient to test the endpoints are running properly
 - Append `http://localhost:3000` to each of the endpoints listed below.
 ```
-
 ## Endpoints
 ```
   get 'api/v1/forecast'
   post 'api/v1/users'
-  (post 'api/v1/sessions') => not done
+  post 'api/v1/sessions'
   (post 'api/v1/road_trip') => not done
 ```
-
 ### Forecast
 
 #### Request
@@ -108,7 +106,7 @@ get http://localhost:3000/api/v1/forecast?location=denver,co
                     "conditions": "Partly cloudy",
                     "icon": "//cdn.weatherapi.com/weather/64x64/night/116.png"
                 },
-                this is repeated for the next remaining 24 hours
+                this is repeated for the next remaining hours
             ]
         }
     }
@@ -138,6 +136,32 @@ post http://localhost:3000/api/v1/users
             "api_key": "61e82e95170d1a917904be3967"
         }
     }
+}
+```
+
+### User Login
+
+#### Request
+```
+post http://localhost/api/v1/sessions
+ in the body of the request:
+  {
+  "email": "whatever@example.com",
+  "password": "password"
+}
+```
+
+#### Response (User has to already exist and passwords have to match)
+```
+{
+  "data": {
+    "type": "users",
+    "id": "1",
+    "attributes": {
+      "email": "whatever@example.com",
+      "api_key": "t1h2i3s4_i5s6_l7e8g9i10t11"
+    }
+  }
 }
 ```
 
